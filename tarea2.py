@@ -150,11 +150,18 @@ def habitat():
     datos=response.json()   
 
     lista_pokemones=[]
-    pokemon_habilidad=[]
-    pokemon_link=[]
+    lista_habilidad=[]
+    lista_link=[]
 
 def tipo():
-    pass
+
+    url_tipo="https://pokeapi.co/api/v2/pokemon-shape/"
+    response= requests.get(url_tipo)
+    datos=response.json() 
+
+    lista_shape=[]
+    for i in datos["results"]:
+        lista_shape.append(i["name"])
 
 
 
