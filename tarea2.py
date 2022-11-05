@@ -143,6 +143,7 @@ def habilidad():
 
 def habitat():
 
+    url_api_v2_pokemon="https://pokeapi.co/api/v2/pokemon/"
     url_Habitat="https://pokeapi.co/api/v2/pokemon-habitat/"
     response= requests.get(url_Habitat)
     datos=response.json()    
@@ -167,6 +168,21 @@ def habitat():
     pokemon_nombre=[]
     pokemon_habilidad=[]
     pokemon_link=[]
+
+    print("CARGANDO LOS DATOS...ESTO PUEDE TARDAR UNOS SEGUNDOS")
+
+    for i in datos["pokemon_species"]:
+        pokemon_nombre.append(i["name"])
+
+        información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+
+    
+    print(f"HABITAT: {pokemon_habitat}")
+    print(f"A continuación se muestran los NOMBRES, HABILIDADES Y LINK DE LA IMAGEN. De todos aquellos que están en el HABITAT {pokemon_habitat}")
+    print("(NOMBRE - HABILIDADES - LINK)")
+    #print(list(zip(lista_pokemones, pokemon_habilidad, pokemon_link)))
+    for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
+        print(i)
 
 def tipo():
 
