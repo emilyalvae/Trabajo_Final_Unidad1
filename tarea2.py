@@ -1,10 +1,46 @@
 import requests
 
 def generacion():
+
+    url_generacion="https://pokeapi.co/api/v2/generation/"
+
+    lista_generacion=["1","2","3","4","5","6","7","8"]
+
+    generacion_elegida=input("Ingrese la generación (1 al 8): ")
+
+    while generacion_elegida not in lista_generacion:
+        generacion_elegida= input("Ingrese UNA GENERACION VALIDA de pokemon: ")
+
+    url_generacion_elegida=url_generacion + generacion_elegida
+
+
     pass
 
 def forma():
-    pass
+
+    
+    url_forma="https://pokeapi.co/api/v2/pokemon-shape/"
+    response= requests.get(url_forma)
+    datos=response.json() 
+
+    lista_forma=[]
+    for i in datos["results"]:
+        lista_forma.append(i["name"])
+
+    print("-----------LISTA DE FORMAS DE POKEMON------------")
+    print(lista_forma)  
+
+
+    pokemon_shape= input("Ingrese LA FORMA de pokemon: ")
+
+    while pokemon_shape not in lista_forma:
+        pokemon_shape= input("Ingrese UNA FORMA VALIDA de pokemon: ")
+
+    pokemon_url=url_forma + pokemon_shape
+
+
+
+
 
 def habilidad():
     pass
