@@ -113,6 +113,19 @@ def habilidad():
     print("Lista de las habilidades de los 20 primeros pokemones:")
     print(lista_Habilidad)  
 
+    pokemon_ability= input("Ingrese la HABILIDAD: ").lower()  
+    while pokemon_ability not in lista_Habilidad:
+        pokemon_ability= input("Ingrese UNA HABILIDAD VALIDA de pokemon: ").lower()
+
+    pokemon_url = url_Habilidad + pokemon_ability
+
+    response= requests.get(pokemon_url)
+    datos=response.json()   
+
+    lista_pokemones=[]
+    pokemon_habilidad=[]
+    pokemon_link=[]
+
 def habitat():
 
     url_Habitat="https://pokeapi.co/api/v2/pokemon-habitat/"
