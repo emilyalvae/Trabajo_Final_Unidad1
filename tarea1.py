@@ -1,6 +1,9 @@
 
 
 
+import csv
+
+
 class Libro():
 
     def __init__(self, id=None,titulo=None,genero=None,ISBN=None ,editorial=None,autor=None):
@@ -12,8 +15,27 @@ class Libro():
         self.editorial = editorial
         self.autor = autor         
 
+        self.Lista_libros=open("Libros.csv", "a+", newline='')
+        self.Lista_libros.seek(0)
+ 
+        leer=self.Lista_libros.readlines()  
+
+        if leer==[]:
+
+            list=["id","titulo","genero","ISBN","editorial","autor"]
+            archivo=csv.writer(self.Lista_libros)
+            archivo.writerow(list)  
+                 
     def leer_archivo(self):
-        pass
+
+        self.Lista_libros.seek(0)    
+        archivo=csv.reader(self.Lista_libros)
+        next(archivo,None)
+
+        for i,valor in enumerate(archivo):
+            print(valor)
+            if i>1:
+                return
 
     def listar_libros(self):
         pass
