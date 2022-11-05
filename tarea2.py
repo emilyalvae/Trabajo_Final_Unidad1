@@ -1,5 +1,20 @@
 import requests
 
+def información_Nombre_Habilidad_URL(name_pokemon:str , url : str , pokemon_link : list , pokemon_habilidad : list) -> tuple[list, list]:
+    
+    url_pokemon=url+ name_pokemon
+    response= requests.get(url_pokemon)
+    datos=response.json()
+    
+    pokemon_habilidad_2=[]
+   
+    for y in datos["abilities"]:
+        pokemon_habilidad_2.append(y["ability"]["name"])
+        
+    pokemon_link.append(datos["sprites"]["back_default"])
+    pokemon_habilidad.append(pokemon_habilidad_2)
+ 
+    return pokemon_link, pokemon_habilidad
 
 
 def generacion():
@@ -29,16 +44,7 @@ def generacion():
     for i in datos_generacion["pokemon_species"]:
         pokemon_nombre.append(i["name"])
 
-        pokemon=url_api_v2_pokemon + i["name"]
-        response= requests.get(pokemon)
-        datos=response.json()
-
-        pokemon_habilidad_2=[]
-        for y in datos["abilities"]:
-            pokemon_habilidad_2.append(y["ability"]["name"])
-        
-        pokemon_link.append(datos["sprites"]["back_default"])
-        pokemon_habilidad.append(pokemon_habilidad_2)
+        información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
     
     print("A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen")
     print("(NOMBRE - HABILIDADES - LINK)")
@@ -82,18 +88,7 @@ def forma():
     for i in datos["pokemon_species"]:
         pokemon_nombre.append(i["name"])
 
-
-
-        pokemon=url_api_v2_pokemon + i["name"]
-        response= requests.get(pokemon)
-        datos=response.json()
-
-        pokemon_habilidad_2=[]
-        for y in datos["abilities"]: 
-            pokemon_habilidad_2.append(y["ability"]["name"])
-        
-        pokemon_link.append(datos["sprites"]["back_default"])
-        pokemon_habilidad.append(pokemon_habilidad_2)
+        información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
 
     print(f"TIPO: {forma_escogida}")
     print(f"A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen . De todos aquellos que tienen LA FORMA de {forma_escogida}")
