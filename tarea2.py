@@ -35,6 +35,19 @@ def habitat():
     print("Lista de los habitat de los pokemones:")
     print(lista_Habitat) 
 
+    pokemon_habitat= input("Ingrese el habitat: ").lower()
+    while pokemon_habitat not in lista_Habitat:
+        pokemon_habitat= input("Ingrese un habitat valido: ").lower()
+
+    pokemon_url= url_Habitat + pokemon_habitat
+
+    response= requests.get(pokemon_url)
+    datos=response.json()   
+
+    lista_pokemones=[]
+    pokemon_habilidad=[]
+    pokemon_link=[]
+
 def tipo():
     pass
 
