@@ -44,12 +44,18 @@ def generacion():
     for i in datos_generacion["pokemon_species"]:
         pokemon_nombre.append(i["name"])
 
-        información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        try:                                                 
+            información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        except requests.exceptions.JSONDecodeError:
+            pokemon_link.append("No found")
+            pokemon_habilidad.append("No found")     
     
+    print(f"GENERACION: {generacion_elegida}")
     print("A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen")
     print("(NOMBRE - HABILIDADES - LINK)")
-    print(list(zip(lista_generacion, pokemon_habilidad, pokemon_link)))
 
+    for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
+        print(i)
    
 
 def forma():
@@ -88,14 +94,18 @@ def forma():
     for i in datos["pokemon_species"]:
         pokemon_nombre.append(i["name"])
 
-        información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        try:                                                
+            información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        except requests.exceptions.JSONDecodeError:
+            pokemon_link.append("No found")
+            pokemon_habilidad.append("No found")
 
     print(f"TIPO: {forma_escogida}")
     print(f"A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen . De todos aquellos que tienen LA FORMA de {forma_escogida}")
     print("(NOMBRE - HABILIDADES - LINK)")
-    print(list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)))
 
-
+    for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
+        print(i)
 
 
 def habilidad():
@@ -225,32 +235,46 @@ def tipo():
     print("(NOMBRE - HABILIDADES - LINK)")
     
 
+<
     for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
         print(i)
 
-print("----------------------------------------------------MENU---------------------------------------------------")
+def menu():
+    print("----------------------------------------------------MENU---------------------------------------------------")
 
-print("""Opción 1: Listar pokemons por generación.
-Opción 2: Listar pokemons por forma. 
-Opción 3: Listar pokemons por habilidad. 
-Opción 4: Listar pokemons por habitat. .
-Opción 5: Listar pokemons por tipo. """)
+    print("""Opción 1: Listar pokemons por generación.
+    Opción 2: Listar pokemons por forma. 
+    Opción 3: Listar pokemons por habilidad. 
+    Opción 4: Listar pokemons por habitat. .
+    Opción 5: Listar pokemons por tipo. """)
 
 
-opcion=int(input("INGRESE UNA OPCION DEL 1 AL 5: "))
-opciones=[1,2,3,4,5]
 
-while opcion not in opciones:
-    opcion=int(input("INGRESE UNA OPCION VALIDA DEL 1 AL 5: "))
+    opcion=input("INGRESE UNA OPCION DEL 1 AL 5: ")
+    opciones=["1","2","3","4","5"]
 
-if opcion==1:
-    generacion()
-if opcion==2:
-    forma()
-if opcion==3:
-    habilidad()
-if opcion==4:
-    habitat()
-if opcion==5:
-    tipo()
+    while opcion not in opciones:
+        opcion=input("INGRESE UNA OPCION VALIDA DEL 1 AL 5: ")
 
+
+    if opcion=="1":
+        generacion()
+    if opcion=="2":
+        forma()
+    if opcion=="3":
+        habilidad()
+    if opcion=="4":
+        habitat()
+    if opcion=="5":
+        tipo()
+
+    
+menu()
+
+print("Presione 'y' para continuar y cualquier letra para salir del programa")
+continuar=input("Desea continuar con las opciones? (y/n): ")
+
+while continuar=="y":
+    menu()
+    print("Presione 'y' para continuar y cualquier letra para salir del programa")
+    continuar=input("Desea continuar con las opciones? (y/n): ")
