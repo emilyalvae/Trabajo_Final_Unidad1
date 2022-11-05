@@ -7,10 +7,33 @@ def forma():
     pass
 
 def habilidad():
-    pass
+    
+    url_Habilidad="https://pokeapi.co/api/v2/ability/"
+
+    response= requests.get(url_Habilidad)
+    datos=response.json() 
+
+    lista_Habilidad=[]
+
+    for i in datos["results"]:
+        lista_Habilidad.append(i["name"])
+
+    print("Lista de las habilidades de los 20 primeros pokemones:")
+    print(lista_Habilidad)  
 
 def habitat():
-    pass
+
+    url_Habitat="https://pokeapi.co/api/v2/pokemon-habitat/"
+    response= requests.get(url_Habitat)
+    datos=response.json()    
+
+    lista_Habitat=[]
+
+    for i in datos["results"]:
+        lista_Habitat.append(i["name"])
+
+    print("Lista de los habitat de los pokemones:")
+    print(lista_Habitat) 
 
 def tipo():
     pass
