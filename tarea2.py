@@ -109,7 +109,8 @@ def forma():
 
 
 def habilidad():
-    
+
+    url_api_v2_pokemon="https://pokeapi.co/api/v2/pokemon/"
     url_Habilidad="https://pokeapi.co/api/v2/ability/"
 
     response= requests.get(url_Habilidad)
@@ -125,19 +126,34 @@ def habilidad():
 
     pokemon_ability= input("Ingrese la HABILIDAD: ").lower()  
     while pokemon_ability not in lista_Habilidad:
-        pokemon_ability= input("Ingrese UNA HABILIDAD VALIDA de pokemon: ").lower()
+        pokemon_ability= input("Ingrese una habilidad valida: ").lower()
 
     pokemon_url = url_Habilidad + pokemon_ability
 
     response= requests.get(pokemon_url)
     datos=response.json()   
 
-    lista_pokemones=[]
+    pokemon_nombre=[]
     pokemon_habilidad=[]
     pokemon_link=[]
+    
+    print("CARGANDO LOS DATOS...ESTO PUEDE TARDAR UNOS SEGUNDOS")
+
+    for i in datos["pokemon"]:
+        pokemon_nombre.append(i["pokemon"]["name"])
+
+        información_Nombre_Habilidad_URL(i["pokemon"]["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+
+    print(f"HABILIDAD: {pokemon_ability}")
+    print(f"A continuación se muestran los NOMBRES, HABILIDADES y  LINK DE LA IMAGEN . De todos aquellos que tienen la habilidad de {pokemon_ability}")
+    print("(NOMBRE - HABILIDADES - LINK)")
+
+    for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
+        print(i)
 
 def habitat():
 
+    url_api_v2_pokemon="https://pokeapi.co/api/v2/pokemon/"
     url_Habitat="https://pokeapi.co/api/v2/pokemon-habitat/"
     response= requests.get(url_Habitat)
     datos=response.json()    
@@ -159,20 +175,69 @@ def habitat():
     response= requests.get(pokemon_url)
     datos=response.json()   
 
-    lista_pokemones=[]
-    lista_habilidad=[]
-    lista_link=[]
+    pokemon_nombre=[]
+    pokemon_habilidad=[]
+    pokemon_link=[]
+
+    print("CARGANDO LOS DATOS...ESTO PUEDE TARDAR UNOS SEGUNDOS")
+
+    for i in datos["pokemon_species"]:
+        pokemon_nombre.append(i["name"])
+
+        información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+
+    
+    print(f"HABITAT: {pokemon_habitat}")
+    print(f"A continuación se muestran los NOMBRES, HABILIDADES Y LINK DE LA IMAGEN. De todos aquellos que están en el HABITAT {pokemon_habitat}")
+    print("(NOMBRE - HABILIDADES - LINK)")
+    #print(list(zip(lista_pokemones, pokemon_habilidad, pokemon_link)))
+    for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
+        print(i)
 
 def tipo():
 
-    url_tipo="https://pokeapi.co/api/v2/pokemon-shape/"
+    url_api_v2_pokemon="https://pokeapi.co/api/v2/pokemon/"
+    url_tipo="https://pokeapi.co/api/v2/type/"
     response= requests.get(url_tipo)
     datos=response.json() 
 
-    lista_shape=[]
+    lista_tipo=[]
     for i in datos["results"]:
-        lista_shape.append(i["name"])
+        lista_tipo.append(i["name"])
 
+    print("LISTA DE TIPOS DE POKEMON")
+    print(lista_tipo)  
+
+    pokemon_tipo= input("Ingrese el tipo de pokemon: ").lower()
+    while pokemon_tipo not in lista_tipo:
+        pokemon_tipo= input("Ingrese UN TIPO VALIDO de pokemon: ").lower()
+
+    pokemon_url=url_tipo + pokemon_tipo
+
+    response= requests.get(pokemon_url)
+    datos=response.json()   
+
+
+    pokemon_nombre=[]
+    pokemon_habilidad=[]
+    pokemon_link=[]
+
+
+    print("CARGANDO LOS DATOS...ESTO PUEDE TARDAR UNOS SEGUNDOS...")
+
+    for i in datos["pokemon"]:
+        pokemon_nombre.append(i["pokemon"]["name"])
+
+        información_Nombre_Habilidad_URL(i["pokemon"]["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+
+    print(f"TIPO: {pokemon_tipo}")
+    print(f"A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen . De todos aquellos que tienen EL TIPO {pokemon_tipo}")
+    print("(NOMBRE - HABILIDADES - LINK)")
+    
+
+<
+    for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
+        print(i)
 
 def menu():
     print("----------------------------------------------------MENU---------------------------------------------------")
@@ -182,6 +247,7 @@ def menu():
     Opción 3: Listar pokemons por habilidad. 
     Opción 4: Listar pokemons por habitat. .
     Opción 5: Listar pokemons por tipo. """)
+
 
 
     opcion=input("INGRESE UNA OPCION DEL 1 AL 5: ")
