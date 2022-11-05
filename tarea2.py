@@ -186,15 +186,47 @@ def habitat():
 
 def tipo():
 
-    url_tipo="https://pokeapi.co/api/v2/pokemon-shape/"
+    url_api_v2_pokemon="https://pokeapi.co/api/v2/pokemon/"
+    url_tipo="https://pokeapi.co/api/v2/type/"
     response= requests.get(url_tipo)
     datos=response.json() 
 
-    lista_shape=[]
+    lista_tipo=[]
     for i in datos["results"]:
-        lista_shape.append(i["name"])
+        lista_tipo.append(i["name"])
+
+    print("LISTA DE TIPOS DE POKEMON")
+    print(lista_tipo)  
+
+    pokemon_tipo= input("Ingrese el tipo de pokemon: ").lower()
+    while pokemon_tipo not in lista_tipo:
+        pokemon_tipo= input("Ingrese UN TIPO VALIDO de pokemon: ").lower()
+
+    pokemon_url=url_tipo + pokemon_tipo
+
+    response= requests.get(pokemon_url)
+    datos=response.json()   
 
 
+    pokemon_nombre=[]
+    pokemon_habilidad=[]
+    pokemon_link=[]
+
+
+    print("CARGANDO LOS DATOS...ESTO PUEDE TARDAR UNOS SEGUNDOS...")
+
+    for i in datos["pokemon"]:
+        pokemon_nombre.append(i["pokemon"]["name"])
+
+        información_Nombre_Habilidad_URL(i["pokemon"]["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+
+    print(f"TIPO: {pokemon_tipo}")
+    print(f"A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen . De todos aquellos que tienen EL TIPO {pokemon_tipo}")
+    print("(NOMBRE - HABILIDADES - LINK)")
+    
+
+    for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
+        print(i)
 
 print("----------------------------------------------------MENU---------------------------------------------------")
 
