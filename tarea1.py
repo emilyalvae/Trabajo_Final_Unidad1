@@ -69,9 +69,8 @@ class Libro():
 
 
 
-
-continuar=True
-while continuar:
+def menu():
+    global continuar
 
     print("""Opción 1: Leer archivo de disco duro (.txt o csv) que cargue 3 libros.
         Opción 2: Listar libros.
@@ -133,4 +132,12 @@ while continuar:
 
     if numero==11:
         continuar=False
+        return
+    pregunta=input("Desea continuar? (y/n): ")
+    if pregunta!="y":
+        continuar=False
 
+
+continuar=True
+while continuar:
+    menu()
