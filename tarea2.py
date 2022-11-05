@@ -99,7 +99,8 @@ def forma():
 
 
 def habilidad():
-    
+
+    url_api_v2_pokemon="https://pokeapi.co/api/v2/pokemon/"
     url_Habilidad="https://pokeapi.co/api/v2/ability/"
 
     response= requests.get(url_Habilidad)
@@ -115,16 +116,30 @@ def habilidad():
 
     pokemon_ability= input("Ingrese la HABILIDAD: ").lower()  
     while pokemon_ability not in lista_Habilidad:
-        pokemon_ability= input("Ingrese UNA HABILIDAD VALIDA de pokemon: ").lower()
+        pokemon_ability= input("Ingrese una habilidad valida: ").lower()
 
     pokemon_url = url_Habilidad + pokemon_ability
 
     response= requests.get(pokemon_url)
     datos=response.json()   
 
-    lista_pokemones=[]
+    pokemon_nombre=[]
     pokemon_habilidad=[]
     pokemon_link=[]
+    
+    print("CARGANDO LOS DATOS...ESTO PUEDE TARDAR UNOS SEGUNDOS")
+
+    for i in datos["pokemon"]:
+        pokemon_nombre.append(i["pokemon"]["name"])
+
+        información_Nombre_Habilidad_URL(i["pokemon"]["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+
+    print(f"HABILIDAD: {pokemon_ability}")
+    print(f"A continuación se muestran los NOMBRES, HABILIDADES y  LINK DE LA IMAGEN . De todos aquellos que tienen la habilidad de {pokemon_ability}")
+    print("(NOMBRE - HABILIDADES - LINK)")
+
+    for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
+        print(i)
 
 def habitat():
 
@@ -149,9 +164,9 @@ def habitat():
     response= requests.get(pokemon_url)
     datos=response.json()   
 
-    lista_pokemones=[]
-    lista_habilidad=[]
-    lista_link=[]
+    pokemon_nombre=[]
+    pokemon_habilidad=[]
+    pokemon_link=[]
 
 def tipo():
 
