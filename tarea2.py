@@ -41,6 +41,7 @@ def generacion():
         pokemon_habilidad.append(pokemon_habilidad_2)
     
     print("A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen")
+    print("(NOMBRE - HABILIDADES - LINK)")
     print(list(zip(lista_generacion, pokemon_habilidad, pokemon_link)))
 
    
@@ -95,7 +96,7 @@ def forma():
         pokemon_habilidad.append(pokemon_habilidad_2)
 
     print(f"TIPO: {forma_escogida}")
-    print(f"A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen . De todos aquellos que tienen LA FORMA de {pokemon_shape}")
+    print(f"A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen . De todos aquellos que tienen LA FORMA de {forma_escogida}")
     print("(NOMBRE - HABILIDADES - LINK)")
     print(list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)))
 
