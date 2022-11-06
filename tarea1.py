@@ -326,7 +326,11 @@ def menu():
 
         titulo = input("Ingrese el titulo: ")
         genero = input("Ingrese el genero: ")
-        ISBN = input("Ingrese el ISBN: ")
+        ISBN_unico = input("Ingrese el ISBN: ")
+        
+        while not ISBN_unico.isdigit():
+            ISBN_unico = input("Ingrese un ISBN VALIDO: ")
+            
         editorial = input("ingrese el editorial: ")
 
         cant_autores=input("cant_autores: ")
@@ -342,7 +346,7 @@ def menu():
 
         autor=list(dicc.values())
 
-        Autor=Libro(titulo=titulo,genero=genero,ISBN=ISBN,editorial=editorial,autor=autor)
+        Autor=Libro(titulo=titulo,genero=genero,ISBN=ISBN_unico,editorial=editorial,autor=autor)
         Autor.agregar_libros()
 
     if numero==4:
