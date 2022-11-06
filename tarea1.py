@@ -412,7 +412,7 @@ def menu():
         return
     
     print("Ingrese 'y' para continuar con las opciones, Cualquier letra para cancelar.")
-    pregunta=input("Desea continuar? (y/n): ")
+    pregunta=input("Desea continuar? (y/n): ").lower()
     if pregunta!="y":
         continuar=False
 
