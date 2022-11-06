@@ -1,6 +1,6 @@
 
 
-
+import ast
 import csv
 
 lista_autores=[]
@@ -122,13 +122,83 @@ class Libro():
         self.Lista_libros.close()
 
     def ordenar_libros(self):
-        pass
+
+        self.Lista_libros.seek(0)  
+        archivo=(csv.reader(self.Lista_libros))
+
+        next(archivo,None)
+
+        archivo=list(archivo)
+
+        ordenados=sorted(archivo, key=lambda titulo : titulo[1])
+
+        emcabezado=["titulo","genero","ISBN","editorial","autor"]
+        ordenados.insert(0,emcabezado)
+
+        with open("Libros.csv", "w", newline='') as file:
+            writer=csv.writer(file)
+            writer.writerows(ordenados)
+
+        self.Lista_libros.close()
 
     def buscar_libro_x_autor_editorial_género(self):
-        pass
 
-    def buscar_libro_x_numero_de_autores(self):
-        pass
+        self.Lista_libros.seek(0)  
+        archivo=csv.reader(self.Lista_libros)
+
+        next(archivo,None)
+
+        archivo=list(archivo)
+
+        print("OPCIONES DE AUTOR, EDITORIAL Y GENERO DISPONIBLES: ")    
+
+        for i,value in enumerate(archivo):
+            print("AUTOR:",value[5],", EDITORIAL:",value[4] ,", GENERO: ",value[2])
+
+        autor_libro=input("Ingrese el autor: ").lower()
+        editorial_libro = input("Ingrese el editorial libro: ").lower()
+        genero_libro=input("Ingrese el genero: ").lower()
+
+        encontrar_actor=False
+        for i,value in enumerate(archivo):
+            
+            for autor in ast.literal_eval(value[5]):
+                if autor.lower()==autor_libro:
+                    encontrar_actor=True
+                    
+        
+            if encontrar_actor==True or value[4].lower()==editorial_libro or value[2].lower()==genero_libro:
+
+                print("\n--------RESULTADOS DEL LIBRO BUSCADO---------\n")
+                print("TITULO:",value[1])
+                print("GENERO:",value[2])
+                print("ISBN:",value[3])
+                print("EDITORIAL",value[4])
+                print("AUTOR:",value[5])
+
+                return
+
+        self.Lista_libros.close()
+        
+    def buscar_libro_x_numero_de_autores(self,num):
+
+        self.Lista_libros.seek(0)  
+        archivo=csv.reader(self.Lista_libros)
+
+        next(archivo,None)
+
+        archivo=list(archivo)
+
+        print(f"---LIBROS CON {num} AUTORES---")
+
+        for i,value in enumerate(archivo):
+
+            lista_serializada=ast.literal_eval(value[5]) 
+           
+            if len(lista_serializada)==num:
+                print(f"->{value[1]}")
+        
+        self.Lista_libros.close()
 
     def editar_libro(self):
         pass
@@ -188,11 +258,12 @@ def menu():
 
     if numero==7:
         Autor=Libro()
-        Autor.buscar_libro_ISBN_título()
+        Autor.buscar_libro_x_autor_editorial_género()
 
     if numero==8:
+        num=int(input("ingrese cant de autores: "))
         Autor=Libro()
-        Autor.buscar_libro_x_numero_de_autores
+        Autor.buscar_libro_x_numero_de_autores(num)
 
     if numero==9:
         Autor=Libro()
