@@ -201,7 +201,7 @@ class Libro():
         self.Lista_libros.close()
 
     def editar_libro(self):
-        
+
         self.Lista_libros.seek(0)  
         archivo=csv.reader(self.Lista_libros)
 
@@ -252,9 +252,14 @@ class Libro():
 
 
     def guardar_libros(self):
-        pass
 
-
+        global lista_autores
+        archivo=csv.writer(self.Lista_libros)
+        archivo.writerows(lista_autores)            
+        lista_autores=[]
+        
+        self.Lista_libros.close()  
+        print("SE GUARDÓ CON ÉXITO")
 
 
 
@@ -309,12 +314,17 @@ def menu():
         Autor.buscar_libro_x_autor_editorial_género()
 
     if numero==8:
+
         num=int(input("ingrese cant de autores: "))
+
         Autor=Libro()
         Autor.buscar_libro_x_numero_de_autores(num)
 
     if numero==9:
-        Autor=Libro()
+
+        Ide=input("ingrese el ID del libro que quiera editar: ")
+
+        Autor=Libro(id = Ide)
         Autor.editar_libro()
 
     if numero==10:
@@ -324,6 +334,7 @@ def menu():
     if numero==11:
         continuar=False
         return
+
     pregunta=input("Desea continuar? (y/n): ")
     if pregunta!="y":
         continuar=False
