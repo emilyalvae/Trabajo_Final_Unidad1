@@ -155,9 +155,9 @@ class Libro():
         for i,value in enumerate(archivo):
             print("AUTOR:",value[5],", EDITORIAL:",value[4] ,", GENERO: ",value[2])
 
-        autor_libro=input("ingrese el autor: ").lower()
-        editorial_libro = input("ingrese el editorial libro: ").lower()
-        genero_libro=input("ingrese el genero: ").lower()
+        autor_libro=input("Ingrese el autor: ").lower()
+        editorial_libro = input("Ingrese el editorial libro: ").lower()
+        genero_libro=input("Ingrese el genero: ").lower()
 
         encontrar_actor=False
         for i,value in enumerate(archivo):
