@@ -125,7 +125,7 @@ class Libro():
 
 
         for i,value in enumerate(archivo):
-            if value[2]==codigo or value[0]==nombre_libro:
+            if value[3]==codigo or value[1]==nombre_libro:
 
                 print("\n--------RESULTADOS---------\n")
                 print("ID:",value[0])
@@ -150,7 +150,7 @@ class Libro():
 
         ordenados=sorted(archivo, key=lambda titulo : titulo[1])
 
-        emcabezado=["titulo","genero","ISBN","editorial","autor"]
+        emcabezado=["id","titulo","genero","ISBN","editorial","autor"]
         ordenados.insert(0,emcabezado)
 
         with open("Libros.csv", "w", newline='') as file:
