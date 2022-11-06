@@ -241,7 +241,7 @@ def menu():
 
     if numero==7:
         Autor=Libro()
-        Autor.buscar_libro_ISBN_título()
+        Autor.buscar_libro_x_autor_editorial_género()
 
     if numero==8:
         Autor=Libro()
