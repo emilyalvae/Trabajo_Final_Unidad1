@@ -121,7 +121,7 @@ def habilidad():
     for i in datos["results"]:
         lista_Habilidad.append(i["name"])
 
-    print("Lista de las habilidades de los 20 primeros pokemones:")
+    print("Lista de las 20 habilidades de los 327 del total de habilidades de pokemones:")
     print(lista_Habilidad)  
 
     pokemon_ability= input("Ingrese la HABILIDAD: ").lower()  
