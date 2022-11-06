@@ -122,7 +122,24 @@ class Libro():
         self.Lista_libros.close()
 
     def ordenar_libros(self):
-        pass
+
+        self.Lista_libros.seek(0)  
+        archivo=(csv.reader(self.Lista_libros))
+
+        next(archivo,None)
+
+        archivo=list(archivo)
+
+        ordenados=sorted(archivo, key=lambda titulo : titulo[1])
+
+        emcabezado=["titulo","genero","ISBN","editorial","autor"]
+        ordenados.insert(0,emcabezado)
+
+        with open("Libros.csv", "w", newline='') as file:
+            writer=csv.writer(file)
+            writer.writerows(ordenados)
+
+        self.Lista_libros.close()
 
     def buscar_libro_x_autor_editorial_género(self):
         pass
