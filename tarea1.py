@@ -31,7 +31,10 @@ class Libro():
         self.Lista_libros.seek(0)    
         archivo=csv.reader(self.Lista_libros)
         next(archivo,None)
-
+            
+        if list(archivo)==[]:
+            print("No hay libros guardados en archivo 'Libros.csv'")
+        
         for i,valor in enumerate(archivo):
             print(valor)
             if i>1:
