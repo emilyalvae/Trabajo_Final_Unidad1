@@ -59,8 +59,26 @@ class Libro():
         print(f"SE AGREGO EL LIBRO {self.titulo} A LA LISTA CON ÉXITO")   
 
     def eliminar_libros(self):
-        pass
+        
+        self.Lista_libros.seek(0)  
 
+        archivo=list(csv.reader(self.Lista_libros))
+     
+        for i,value in enumerate(archivo):
+            if value[0]==self.id:
+                archivo.pop(i)
+
+                with open("Libros.csv", "w", newline='') as file:  
+                    writer=csv.writer(file)
+                    writer.writerows(archivo)
+            
+
+                print(f"Libro {value[1]} ELIMINADO")
+                return
+
+        self.Lista_libros.close()
+
+        
     def buscar_libro_ISBN_título(self):
         pass
 
