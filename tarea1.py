@@ -201,7 +201,55 @@ class Libro():
         self.Lista_libros.close()
 
     def editar_libro(self):
-        pass
+        
+        self.Lista_libros.seek(0)  
+        archivo=csv.reader(self.Lista_libros)
+
+        archivo=list(archivo)
+
+        for i,value in enumerate(archivo):
+            if value[0]==self.id :
+
+                print(f"\n--------RESULTADOS DEL LIBRO CON ID {self.id}---------\n")
+                print("TIULO:",value[1])
+                print("GENERO:",value[2])
+                print("ISBN:",value[3])
+                print("EDITORIAL",value[4])
+                print("AUTOR:",value[5])
+
+                posicion=i
+                break   
+       
+
+        titulo_libro= input("ingrese el titulo actualizado: ")
+        genero_libro=input("ingrese el genero actualizado: ")
+        ISBN_libro=input("ingrese el ISBN actualizado: ")
+        editorial_libro=input("ingrese el editorial actualizado: ")
+        
+
+        archivo[posicion][1]=titulo_libro
+        archivo[posicion][2]=genero_libro
+        archivo[posicion][3]=ISBN_libro
+        archivo[posicion][4]=editorial_libro
+       
+        
+        cant_autores=int(input("cant_autores: "))
+        dicc={}
+        for i in range(1,cant_autores+1):
+            
+            dicc[f"Autor{i}"] = input(f"ingrese el autor {i}: ")
+        autor_libro=list(dicc.values())
+
+
+        archivo[posicion][5]=autor_libro
+
+        with open("Libros.csv", "w", newline='') as file: 
+            writer=csv.writer(file)
+            writer.writerows(archivo)
+
+
+        self.Lista_libros.close()
+
 
     def guardar_libros(self):
         pass
