@@ -37,7 +37,7 @@ class Libro():
             if i>1:
                 return
 
-    def listar_libros(self):
+    def listar_libros_guardados(self):
 
         self.Lista_libros.seek(0)   
         archivo=csv.reader(self.Lista_libros)
@@ -46,6 +46,16 @@ class Libro():
 
         for i in list(archivo):
             print(i)
+
+        self.Lista_libros.close()
+    
+    def listar_libros_sin_guardar(self):
+        global lista_autores
+        if lista_autores==[]:
+            print("No hay libros sin guardar, Todos están guardados")
+        for i in lista_autores:
+            print(i)
+
 
     def agregar_libros(self):
         
@@ -290,11 +300,43 @@ def menu():
         Autor.leer_archivo()
 
     if numero==2:
+
+        print("""\n----OPCIONES DE LISTADO----
+        1). QUIERO LISTAR LOS LIBROS GUARDADOS EN MI ARCHIVO libros.csv
+        2). QUIERO LISTAR LOS LIBROS NO GUARDADOS\n""")
+
+        pregunta=input("Elige una opcion (1 o 2): ")
+
+        while pregunta not in ["1","2"]:
+            pregunta=input("Elige una opcion CORRECTA (1 o 2): ")
+        
         Autor=Libro()
-        Autor.listar_libros()
+        if pregunta=="1":
+            Autor.listar_libros_guardados()
+        else:
+            Autor.listar_libros_sin_guardar()
 
     if numero==3:
-        Autor=Libro()
+
+        titulo = input("Ingrese el titulo: ")
+        genero = input("Ingrese el genero: ")
+        ISBN = input("Ingrese el ISBN: ")
+        editorial = input("ingrese el editorial: ")
+
+        cant_autores=input("cant_autores: ")
+        while  not cant_autores.isdigit():
+            cant_autores=(input("cant_autores: "))
+        cant_autores=int(cant_autores)
+
+        dicc={}
+        
+        for i in range(1,cant_autores+1):
+                
+            dicc[f"Autor{i}"] = input(f"ingrese el autor {i}: ")
+
+        autor=list(dicc.values())
+
+        Autor=Libro(titulo=titulo,genero=genero,ISBN=ISBN,editorial=editorial,autor=autor)
         Autor.agregar_libros()
 
     if numero==4:

@@ -142,7 +142,12 @@ def habilidad():
     for i in datos["pokemon"]:
         pokemon_nombre.append(i["pokemon"]["name"])
 
-        información_Nombre_Habilidad_URL(i["pokemon"]["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        try:                                                
+            información_Nombre_Habilidad_URL(i["pokemon"]["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        
+        except requests.exceptions.JSONDecodeError:
+            pokemon_link.append("No found")
+            pokemon_habilidad.append("No found")
 
     print(f"HABILIDAD: {pokemon_ability}")
     print(f"A continuación se muestran los NOMBRES, HABILIDADES y  LINK DE LA IMAGEN . De todos aquellos que tienen la habilidad de {pokemon_ability}")
@@ -168,6 +173,7 @@ def habitat():
 
     pokemon_habitat= input("Ingrese el habitat: ").lower()
     while pokemon_habitat not in lista_Habitat:
+        
         pokemon_habitat= input("Ingrese un habitat valido: ").lower()
 
     pokemon_url= url_Habitat + pokemon_habitat
@@ -184,13 +190,17 @@ def habitat():
     for i in datos["pokemon_species"]:
         pokemon_nombre.append(i["name"])
 
-        información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
-
+        try:                                                
+            información_Nombre_Habilidad_URL(i["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        
+        except requests.exceptions.JSONDecodeError:
+            pokemon_link.append("No found")
+            pokemon_habilidad.append("No found")
     
     print(f"HABITAT: {pokemon_habitat}")
     print(f"A continuación se muestran los NOMBRES, HABILIDADES Y LINK DE LA IMAGEN. De todos aquellos que están en el HABITAT {pokemon_habitat}")
     print("(NOMBRE - HABILIDADES - LINK)")
-    #print(list(zip(lista_pokemones, pokemon_habilidad, pokemon_link)))
+
     for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
         print(i)
 
@@ -228,14 +238,19 @@ def tipo():
     for i in datos["pokemon"]:
         pokemon_nombre.append(i["pokemon"]["name"])
 
-        información_Nombre_Habilidad_URL(i["pokemon"]["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        try:                                                
+            información_Nombre_Habilidad_URL(i["pokemon"]["name"],url_api_v2_pokemon,pokemon_link,pokemon_habilidad)
+        
+        except requests.exceptions.JSONDecodeError:
+            pokemon_link.append("No found")
+            pokemon_habilidad.append("No found")
 
     print(f"TIPO: {pokemon_tipo}")
     print(f"A continuación se muestran los NOMBRES, HABILIDADES, link de la imagen . De todos aquellos que tienen EL TIPO {pokemon_tipo}")
     print("(NOMBRE - HABILIDADES - LINK)")
     
 
-    
+
     for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
         print(i)
 
