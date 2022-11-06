@@ -208,13 +208,19 @@ class Libro():
         archivo=list(archivo)
 
         print(f"---LIBROS CON {num} AUTORES---")
-
+        
+        libros_disponibles=False
         for i,value in enumerate(archivo):
 
             lista_serializada=ast.literal_eval(value[5]) 
            
             if len(lista_serializada)==num:
                 print(f"->{value[1]}")
+                self.Lista_libros.close()
+                libros_disponibles=True
+                
+        if libros_disponibles==False:
+            print(f"No hay libros de {num} autor(es) guardados en el archivo 'Libros.csv'")
         
         self.Lista_libros.close()
 
