@@ -200,7 +200,7 @@ def habitat():
     print(f"HABITAT: {pokemon_habitat}")
     print(f"A continuación se muestran los NOMBRES, HABILIDADES Y LINK DE LA IMAGEN. De todos aquellos que están en el HABITAT {pokemon_habitat}")
     print("(NOMBRE - HABILIDADES - LINK)")
-    #print(list(zip(lista_pokemones, pokemon_habilidad, pokemon_link)))
+
     for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
         print(i)
 
