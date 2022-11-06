@@ -142,7 +142,23 @@ class Libro():
         self.Lista_libros.close()
 
     def buscar_libro_x_autor_editorial_género(self):
-        pass
+        
+        self.Lista_libros.seek(0)  
+        archivo=csv.reader(self.Lista_libros)
+
+        next(archivo,None)
+
+        archivo=list(archivo)
+
+        print("OPCIONES DE AUTOR, EDITORIAL Y GENERO DISPONIBLES: ")    
+
+        for i,value in enumerate(archivo):
+            print("AUTOR:",value[5],", EDITORIAL:",value[4] ,", GENERO: ",value[2])
+
+        autor_libro=input("ingrese el autor: ").lower()
+        editorial_libro = input("ingrese el editorial libro: ").lower()
+        genero_libro=input("ingrese el genero: ").lower()
+
 
     def buscar_libro_x_numero_de_autores(self):
         pass
