@@ -391,8 +391,12 @@ def menu():
 
     if numero==8:
 
-        num=int(input("ingrese cant de autores: "))
-
+        num=input("ingrese cantidad de autores: ")
+        
+        while  not num.isdigit():
+            num=input("ingrese nuevamente cantidad (entero) de autores: ")
+        num=int(num)
+        
         Autor=Libro()
         Autor.buscar_libro_x_numero_de_autores(num)
 
