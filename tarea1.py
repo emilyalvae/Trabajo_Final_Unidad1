@@ -3,7 +3,7 @@
 
 import csv
 
-
+lista_autores=[]
 class Libro():
 
     def __init__(self, id=None,titulo=None,genero=None,ISBN=None ,editorial=None,autor=None):
@@ -41,7 +41,22 @@ class Libro():
         pass
 
     def agregar_libros(self):
-        pass
+        
+        global lista_autores
+        self.Lista_libros.seek(0)
+    
+        archivo=csv.reader(self.Lista_libros)
+
+        Ide=len(list(archivo))
+
+     
+        Ide_actualizado=Ide+len(lista_autores)
+        print(Ide_actualizado)
+
+        lista_autores.append([f"{Ide_actualizado}",f"{self.titulo}" ,f"{self.genero}",f"{self.ISBN}",f"{self.editorial}", self.autor])
+
+        self.Lista_libros.close()   
+        print(f"SE AGREGO EL LIBRO {self.titulo} A LA LISTA CON ÉXITO")   
 
     def eliminar_libros(self):
         pass
