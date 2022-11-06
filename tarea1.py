@@ -38,7 +38,14 @@ class Libro():
                 return
 
     def listar_libros(self):
-        pass
+
+        self.Lista_libros.seek(0)   
+        archivo=csv.reader(self.Lista_libros)
+
+        next(archivo,None)
+
+        for i in list(archivo):
+            print(i)
 
     def agregar_libros(self):
         
@@ -78,9 +85,41 @@ class Libro():
 
         self.Lista_libros.close()
 
-        
+
     def buscar_libro_ISBN_título(self):
-        pass
+
+        self.Lista_libros.seek(0)  
+        archivo=csv.reader(self.Lista_libros)
+        
+        next(archivo,None)
+
+        archivo=list(archivo)
+
+        print("OPCIONES DE TITULO Y ISBN DISPONIBLES: ")    
+
+        for i,value in enumerate(archivo):
+            print("TITULO:",value[1],", ISBN:",value[3])
+
+
+        codigo=input("ingrese el ISBN: ").lower()
+        nombre_libro = input("ingrese el titulo del libro: ").lower()
+
+
+
+        for i,value in enumerate(archivo):
+            if value[2]==codigo or value[0]==nombre_libro:
+
+                print("\n--------RESULTADOS---------\n")
+                print("ID:",value[0])
+                print("TITULO:",value[1])
+                print("GENERO:",value[2])
+                print("ISBN:",value[3])
+                print("EDITORIAL",value[4])
+                print("AUTOR:",value[5])
+
+                return
+
+        self.Lista_libros.close()
 
     def ordenar_libros(self):
         pass
