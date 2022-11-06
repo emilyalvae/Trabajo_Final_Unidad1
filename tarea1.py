@@ -340,9 +340,10 @@ def menu():
         Autor.agregar_libros()
 
     if numero==4:
+
         ide=input("ingrese el ID del libro que quiere eliminar: ")
         Autor=Libro(id=ide)
-        Autor.eliminar_libro()
+        Autor.eliminar_libros()
 
     if numero==5:
         Autor=Libro()
