@@ -30,16 +30,16 @@ class Libro():
 
         self.Lista_libros.seek(0)    
         archivo=csv.reader(self.Lista_libros)
-        next(archivo,None)
-            
-        if list(archivo)==[]:
-            print("No hay libros guardados en archivo 'Libros.csv'")
+        next(archivo,None)    
         
         for i,valor in enumerate(archivo):
             print(valor)
             if i>1:
                 return
-
+    
+        if list(archivo)==[]:
+            print("No hay libros guardados en archivo 'Libros.csv'")
+            
     def listar_libros_guardados(self):
 
         self.Lista_libros.seek(0)   
@@ -242,16 +242,25 @@ class Libro():
         titulo_libro= input("ingrese el titulo actualizado: ")
         genero_libro=input("ingrese el genero actualizado: ")
         ISBN_libro=input("ingrese el ISBN actualizado: ")
+        
+        while not ISBN_libro.isdigit():
+            ISBN_libro = input("Ingrese un ISBN VALIDO: ")
+            
         editorial_libro=input("ingrese el editorial actualizado: ")
         
-
         archivo[posicion][1]=titulo_libro
         archivo[posicion][2]=genero_libro
         archivo[posicion][3]=ISBN_libro
         archivo[posicion][4]=editorial_libro
        
         
-        cant_autores=int(input("cant_autores: "))
+        cant_autores=input("cant_autores: ")
+        
+        while  not cant_autores.isdigit():
+            cant_autores=input("Ingrese una cantidad numerica de autores: ")
+
+        cant_autores=int(cant_autores)
+        
         dicc={}
         for i in range(1,cant_autores+1):
             
