@@ -180,8 +180,25 @@ class Libro():
 
         self.Lista_libros.close()
         
-    def buscar_libro_x_numero_de_autores(self):
-        pass
+    def buscar_libro_x_numero_de_autores(self,num):
+
+        self.Lista_libros.seek(0)  
+        archivo=csv.reader(self.Lista_libros)
+
+        next(archivo,None)
+
+        archivo=list(archivo)
+
+        print(f"---LIBROS CON {num} AUTORES---")
+
+        for i,value in enumerate(archivo):
+
+            lista_serializada=ast.literal_eval(value[5]) 
+           
+            if len(lista_serializada)==num:
+                print(f"->{value[1]}")
+        
+        self.Lista_libros.close()
 
     def editar_libro(self):
         pass
@@ -244,8 +261,9 @@ def menu():
         Autor.buscar_libro_x_autor_editorial_género()
 
     if numero==8:
+        num=int(input("ingrese cant de autores: "))
         Autor=Libro()
-        Autor.buscar_libro_x_numero_de_autores
+        Autor.buscar_libro_x_numero_de_autores(num)
 
     if numero==9:
         Autor=Libro()
