@@ -224,7 +224,8 @@ class Libro():
         archivo=csv.reader(self.Lista_libros)
 
         archivo=list(archivo)
-
+        
+        libro_disponible=False
         for i,value in enumerate(archivo):
             if value[0]==self.id :
 
@@ -236,44 +237,48 @@ class Libro():
                 print("AUTOR:",value[5])
 
                 posicion=i
+                libro_disponible=True
                 break   
        
-
-        titulo_libro= input("ingrese el titulo actualizado: ")
-        genero_libro=input("ingrese el genero actualizado: ")
-        ISBN_libro=input("ingrese el ISBN actualizado: ")
-        
-        while not ISBN_libro.isdigit():
-            ISBN_libro = input("Ingrese un ISBN VALIDO: ")
+        if libro_disponible:
             
-        editorial_libro=input("ingrese el editorial actualizado: ")
-        
-        archivo[posicion][1]=titulo_libro
-        archivo[posicion][2]=genero_libro
-        archivo[posicion][3]=ISBN_libro
-        archivo[posicion][4]=editorial_libro
-       
-        
-        cant_autores=input("cant_autores: ")
-        
-        while  not cant_autores.isdigit():
-            cant_autores=input("Ingrese una cantidad numerica de autores: ")
+            titulo_libro= input("ingrese el titulo actualizado: ")
+            genero_libro=input("ingrese el genero actualizado: ")
+            ISBN_libro=input("ingrese el ISBN actualizado: ")
 
-        cant_autores=int(cant_autores)
-        
-        dicc={}
-        for i in range(1,cant_autores+1):
-            
-            dicc[f"Autor{i}"] = input(f"ingrese el autor {i}: ")
-        autor_libro=list(dicc.values())
+            while not ISBN_libro.isdigit():
+                ISBN_libro = input("Ingrese un ISBN VALIDO: ")
+
+            editorial_libro=input("ingrese el editorial actualizado: ")
+
+            archivo[posicion][1]=titulo_libro
+            archivo[posicion][2]=genero_libro
+            archivo[posicion][3]=ISBN_libro
+            archivo[posicion][4]=editorial_libro
 
 
-        archivo[posicion][5]=autor_libro
+            cant_autores=input("cant_autores: ")
 
-        with open("Libros.csv", "w", newline='') as file: 
-            writer=csv.writer(file)
-            writer.writerows(archivo)
+            while  not cant_autores.isdigit():
+                cant_autores=input("Ingrese una cantidad numerica de autores: ")
 
+            cant_autores=int(cant_autores)
+
+            dicc={}
+            for i in range(1,cant_autores+1):
+
+                dicc[f"Autor{i}"] = input(f"ingrese el autor {i}: ")
+            autor_libro=list(dicc.values())
+
+
+            archivo[posicion][5]=autor_libro
+
+            with open("Libros.csv", "w", newline='') as file: 
+                writer=csv.writer(file)
+                writer.writerows(archivo)
+                    
+        else:
+            print(f"No existe el ID {self.id} en el archivo Libros.csv")
 
         self.Lista_libros.close()
 
