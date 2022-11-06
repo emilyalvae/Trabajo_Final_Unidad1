@@ -272,10 +272,21 @@ class Libro():
         global lista_autores
         archivo=csv.writer(self.Lista_libros)
         archivo.writerows(lista_autores)            
-        lista_autores=[]
         
+        if lista_autores==[]:
+            print("Aún no hay libros que guardar, agregue libros con la opcion 3.")
+            self.Lista_libros.close() 
+            return
+
+        print("EL LIBRO SE GUARDÓ CON ÉXITO")
+        print("A CONTINUACIÓN SE MUESTRAN LOS TITULOS DE LOS LIBROS RECIEN GUARDADOS:")
+
+        for valor in lista_autores:
+            print(f"Título: {valor[1]}")
+
+
+        lista_autores=[]
         self.Lista_libros.close()  
-        print("SE GUARDÓ CON ÉXITO")
 
 
 
