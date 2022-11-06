@@ -97,8 +97,10 @@ class Libro():
             
 
                 print(f"Libro {value[1]} ELIMINADO")
+                self.Lista_libros.close()
                 return
-
+            
+        print("NO SE ENCONTRÓ DICHO LIBRO CON ESE ID DADO, TIENE QUE INGRESAR UN ID QUE ESTÉ EN EL ARCHIVO 'Libros.csv' .")
         self.Lista_libros.close()
 
 
@@ -399,7 +401,8 @@ def menu():
     if numero==11:
         continuar=False
         return
-
+    
+    print("Ingrese 'y' para continuar con las opciones, Cualquier letra para cancelar.")
     pregunta=input("Desea continuar? (y/n): ")
     if pregunta!="y":
         continuar=False
