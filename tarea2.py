@@ -235,7 +235,7 @@ def tipo():
     print("(NOMBRE - HABILIDADES - LINK)")
     
 
-<
+    
     for i in list(zip(pokemon_nombre, pokemon_habilidad, pokemon_link)):
         print(i)
 
