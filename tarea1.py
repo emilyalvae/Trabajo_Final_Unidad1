@@ -336,12 +336,12 @@ Opcion 11: Salir """)
 
     if numero==11:
         continuar=False
-        return
+        return print("A SALIDO DEL REGISTRO DE LIBROS")
 
     pregunta=input("Desea continuar? (y/n): ")
     if pregunta!="y":
         continuar=False
-
+        return print("A SALIDO DEL REGISTRO DE LIBROS")
 
 continuar=True
 while continuar:
