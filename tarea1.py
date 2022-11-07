@@ -30,22 +30,38 @@ class Libro():
 
         self.Lista_libros.seek(0)    
         archivo=csv.reader(self.Lista_libros)
-        next(archivo,None)
-
+        next(archivo,None)    
+        
         for i,valor in enumerate(archivo):
             print(valor)
             if i>1:
                 return
-
-    def listar_libros(self):
+    
+        if list(archivo)==[]:
+            print("No hay libros guardados en archivo 'Libros.csv'")
+            
+    def listar_libros_guardados(self):
 
         self.Lista_libros.seek(0)   
         archivo=csv.reader(self.Lista_libros)
 
         next(archivo,None)
-
+        
+        if list(archivo)==[]:
+            print("No hay libros guardados en archivo 'Libros.csv'")
+            
         for i in list(archivo):
             print(i)
+
+        self.Lista_libros.close()
+    
+    def listar_libros_sin_guardar(self):
+        global lista_autores
+        if lista_autores==[]:
+            print("No hay libros sin guardar, Todos están guardados")
+        for i in lista_autores:
+            print(i)
+
 
     def agregar_libros(self):
         
@@ -81,8 +97,10 @@ class Libro():
             
 
                 print(f"Libro {value[1]} ELIMINADO")
+                self.Lista_libros.close()
                 return
-
+            
+        print("NO SE ENCONTRÓ DICHO LIBRO CON ESE ID DADO, TIENE QUE INGRESAR UN ID QUE ESTÉ EN EL ARCHIVO 'Libros.csv' .")
         self.Lista_libros.close()
 
 
@@ -107,7 +125,7 @@ class Libro():
 
 
         for i,value in enumerate(archivo):
-            if value[2]==codigo or value[0]==nombre_libro:
+            if value[3]==codigo or value[1]==nombre_libro:
 
                 print("\n--------RESULTADOS---------\n")
                 print("ID:",value[0])
@@ -132,7 +150,7 @@ class Libro():
 
         ordenados=sorted(archivo, key=lambda titulo : titulo[1])
 
-        emcabezado=["titulo","genero","ISBN","editorial","autor"]
+        emcabezado=["id","titulo","genero","ISBN","editorial","autor"]
         ordenados.insert(0,emcabezado)
 
         with open("Libros.csv", "w", newline='') as file:
@@ -190,13 +208,19 @@ class Libro():
         archivo=list(archivo)
 
         print(f"---LIBROS CON {num} AUTORES---")
-
+        
+        libros_disponibles=False
         for i,value in enumerate(archivo):
 
             lista_serializada=ast.literal_eval(value[5]) 
            
             if len(lista_serializada)==num:
                 print(f"->{value[1]}")
+                self.Lista_libros.close()
+                libros_disponibles=True
+                
+        if libros_disponibles==False:
+            print(f"No hay libros de {num} autor(es) guardados en el archivo 'Libros.csv'")
         
         self.Lista_libros.close()
 
@@ -206,7 +230,8 @@ class Libro():
         archivo=csv.reader(self.Lista_libros)
 
         archivo=list(archivo)
-
+        
+        libro_disponible=False
         for i,value in enumerate(archivo):
             if value[0]==self.id :
 
@@ -218,35 +243,48 @@ class Libro():
                 print("AUTOR:",value[5])
 
                 posicion=i
+                libro_disponible=True
                 break   
        
-
-        titulo_libro= input("ingrese el titulo actualizado: ")
-        genero_libro=input("ingrese el genero actualizado: ")
-        ISBN_libro=input("ingrese el ISBN actualizado: ")
-        editorial_libro=input("ingrese el editorial actualizado: ")
-        
-
-        archivo[posicion][1]=titulo_libro
-        archivo[posicion][2]=genero_libro
-        archivo[posicion][3]=ISBN_libro
-        archivo[posicion][4]=editorial_libro
-       
-        
-        cant_autores=int(input("cant_autores: "))
-        dicc={}
-        for i in range(1,cant_autores+1):
+        if libro_disponible:
             
-            dicc[f"Autor{i}"] = input(f"ingrese el autor {i}: ")
-        autor_libro=list(dicc.values())
+            titulo_libro= input("ingrese el titulo actualizado: ")
+            genero_libro=input("ingrese el genero actualizado: ")
+            ISBN_libro=input("ingrese el ISBN actualizado: ")
+
+            while not ISBN_libro.isdigit():
+                ISBN_libro = input("Ingrese un ISBN VALIDO: ")
+
+            editorial_libro=input("ingrese el editorial actualizado: ")
+
+            archivo[posicion][1]=titulo_libro
+            archivo[posicion][2]=genero_libro
+            archivo[posicion][3]=ISBN_libro
+            archivo[posicion][4]=editorial_libro
 
 
-        archivo[posicion][5]=autor_libro
+            cant_autores=input("cant_autores: ")
 
-        with open("Libros.csv", "w", newline='') as file: 
-            writer=csv.writer(file)
-            writer.writerows(archivo)
+            while  not cant_autores.isdigit():
+                cant_autores=input("Ingrese una cantidad numerica de autores: ")
 
+            cant_autores=int(cant_autores)
+
+            dicc={}
+            for i in range(1,cant_autores+1):
+
+                dicc[f"Autor{i}"] = input(f"ingrese el autor {i}: ")
+            autor_libro=list(dicc.values())
+
+
+            archivo[posicion][5]=autor_libro
+
+            with open("Libros.csv", "w", newline='') as file: 
+                writer=csv.writer(file)
+                writer.writerows(archivo)
+                    
+        else:
+            print(f"No existe el ID {self.id} en el archivo Libros.csv")
 
         self.Lista_libros.close()
 
@@ -256,10 +294,21 @@ class Libro():
         global lista_autores
         archivo=csv.writer(self.Lista_libros)
         archivo.writerows(lista_autores)            
-        lista_autores=[]
         
+        if lista_autores==[]:
+            print("Aún no hay libros que guardar, agregue libros con la opcion 3.")
+            self.Lista_libros.close() 
+            return
+
+        print("EL LIBRO SE GUARDÓ CON ÉXITO")
+        print("A CONTINUACIÓN SE MUESTRAN LOS TITULOS DE LOS LIBROS RECIEN GUARDADOS:")
+
+        for valor in lista_autores:
+            print(f"Título: {valor[1]}")
+
+
+        lista_autores=[]
         self.Lista_libros.close()  
-        print("SE GUARDÓ CON ÉXITO")
 
 
 
@@ -291,11 +340,47 @@ Opcion 11: Salir """)
         Autor.leer_archivo()
 
     if numero==2:
+
+        print("""\n----OPCIONES DE LISTADO----
+        1). QUIERO LISTAR LOS LIBROS GUARDADOS EN MI ARCHIVO libros.csv
+        2). QUIERO LISTAR LOS LIBROS NO GUARDADOS\n""")
+
+        pregunta=input("Elige una opcion (1 o 2): ")
+
+        while pregunta not in ["1","2"]:
+            pregunta=input("Elige una opcion CORRECTA (1 o 2): ")
+        
         Autor=Libro()
-        Autor.listar_libros()
+        if pregunta=="1":
+            Autor.listar_libros_guardados()
+        else:
+            Autor.listar_libros_sin_guardar()
 
     if numero==3:
-        Autor=Libro()
+
+        titulo = input("Ingrese el titulo: ")
+        genero = input("Ingrese el genero: ")
+        ISBN_unico = input("Ingrese el ISBN: ")
+        
+        while not ISBN_unico.isdigit():
+            ISBN_unico = input("Ingrese un ISBN VALIDO: ")
+            
+        editorial = input("ingrese el editorial: ")
+
+        cant_autores=input("cant_autores: ")
+        while  not cant_autores.isdigit():
+            cant_autores=(input("cant_autores: "))
+        cant_autores=int(cant_autores)
+
+        dicc={}
+        
+        for i in range(1,cant_autores+1):
+                
+            dicc[f"Autor{i}"] = input(f"ingrese el autor {i}: ")
+
+        autor=list(dicc.values())
+
+        Autor=Libro(titulo=titulo,genero=genero,ISBN=ISBN_unico,editorial=editorial,autor=autor)
         Autor.agregar_libros()
 
     if numero==4:
@@ -318,8 +403,12 @@ Opcion 11: Salir """)
 
     if numero==8:
 
-        num=int(input("ingrese cant de autores: "))
-
+        num=input("ingrese cantidad de autores: ")
+        
+        while  not num.isdigit():
+            num=input("ingrese nuevamente cantidad (entero) de autores: ")
+        num=int(num)
+        
         Autor=Libro()
         Autor.buscar_libro_x_numero_de_autores(num)
 
@@ -338,7 +427,10 @@ Opcion 11: Salir """)
         continuar=False
         return print("A SALIDO DEL REGISTRO DE LIBROS")
 
-    pregunta=input("Desea continuar? (y/n): ")
+ 
+    
+    print("Ingrese 'y' para continuar con las opciones, Cualquier letra para cancelar.")
+    pregunta=input("Desea continuar? (y/n): ").lower()
     if pregunta!="y":
         continuar=False
         return print("A SALIDO DEL REGISTRO DE LIBROS")
